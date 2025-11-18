@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Form</title>
+    <link th:href="@{/product-form.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="form-box">
+        <form th:action="${!isUpdate} ? @{/products/new} : @{/products/update/{id}(id=${productRequest.id})}" th:object="${productRequest}" method="post">
+            <h2 th:text="${!isUpdate} ? 'Add Product' : 'Update Product'">Add Product</h2>
+            <div>
+                <input type="text" th:field="*{name}" placeholder="Product name">
+            </div>
+            <div>Updated
+                <input type="number" th:field="*{price}" placeholder="Price">
+            </div>
+            <div class="selector">-
+                <select th:field="*{categoryId}">
+                    <option th:value="0">---select category---</option>
+                    <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
+                </select>
+
+
+
+                <select th:field="*{supplierId}">
+                    <option th:value="0">---select supplier---</option>
+                    <option th:each="sup : ${suppliers}" th:value="${sup.id}" th:text="${sup.name}"></option>
+                </select>
+            </div>
+
+            <div class="submit">
+                <button>Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
